@@ -1,110 +1,54 @@
-H,Hydrogen,7,1,1.008
-He,Helium,8,1,4.0026
-Li,Lithium,1,2,6.94
-Be,Beryllium,2,2,9.0122
-B,Boron,3,2,10.81
-C,Carbon,4,2,12.011
-N,Nitrogen,5,2,14.007
-O,Oxygen,6,2,15.999
-F,Fluorine,7,2,18.998
-Ne,Neon,8,2,20.180
-Na,Sodium,1,3,22.990
-Mg,Magnesium,2,3,24.305
-Al,Aluminum,3,3,26.982
-Si,Silicon,4,3,28.085
-P,Phosphorus,5,3,30.974
-S,Sulfur,6,3,32.06
-Cl,Chlorine,7,3,35.45
-Ar,Argon,8,3,39.95
-K,Potassium,1,4,39.098
-Ca,Calcium,2,4,40.078
-Sc,Scandium,3,4,44.956
-Ti,Titanium,4,4,47.867
-V,Vanadium,5,4,50.942
-Cr,Chromium,6,4,51.996
-Mn,Manganese,7,4,54.938
-Fe,Iron,8,4,55.845
-Co,Cobalt,9,4,58.933
-Ni,Nickel,10,4,58.693
-Cu,Copper,1,5,63.546
-Zn,Zinc,2,5,65.38
-Ga,Gallium,3,5,69.723
-Ge,Germanium,4,5,72.630
-As,Arsenic,5,5,74.922
-Se,Selenium,6,5,78.971
-Br,Bromine,7,5,79.904
-Kr,Krypton,8,5,83.798
-Rb,Rubidium,1,6,85.47
-Sr,Strontium,2,6,87.62
-Y,Yttrium,3,6,88.91
-Zr,Zirconium,4,6,91.22
-Nb,Niobium,5,6,92.91
-Mo,Molybdenum,6,6,95.94
-Tc,Technetium,7,6,97.91
-Ru,Ruthenium,8,6,101.07
-Rh,Rhodium,9,6,102.906
-Pd,Palladium,10,6,106.4
-Ag,Silver,1,7,107.868
-Cd,Cadmium,2,7,112.41
-In,Indium,3,7,114,.82
-Sn,Tin,4,7,118.71
-Sb,Antimony,5,7,121.75
-Te,Tellurium,6,7,127.60
-I,Iodine,7,7,126.9045
-Xe,Xenon,8,7,131.29
-Cs,Caesium,1,8,132.905
-Ba,Barium,2,8,137.33
-La,Lanthanum,3,8,138.9055
-Ce,Cerium,1,11,140.12
-Pr,Praseodymium,2,11,140.91
-Nd,Neodymium,3,11,144.24
-Pm,Promethium,4,11,145
-Sm,Samarium,5,11,150.36
-Eu,Europium,6,11,151.96
-Gd,Gadolinium,7,11,157.25
-Tb,Terbium,8,11,158.93
-Dy,Dysprosium,9,11,162.50
-Ho,Holmium,10,11,164.93
-Er,Erbium,11,11,167.25
-Tm,Thulium,12,11,178.93
-Yb,Ytterbium,13,11,173.05
-Lu,Lutetium,14,11,174.97
-Hf,Hafnium,4,8,178.49
-Ta,Tantalum,5,8,180.9479
-W,Tungsten,6,8,183.85
-Re,Rhenium,7,8,186.207
-Os,Osmium,8,8,190.2
-Ir,Iridium,9,8,192.22
-Pt,Platinum,10,8,185.08
-Au,Gold,1,9,196.967
-Hg,Mercury,2,9,200.59
-Tl,Thallium,3,9,204.38
-Pb,Lead,4,9,207.19
-Bi,Bismuth,5,9,208.980
-Po,Polonium,6,9,209.98
-At,Astatine,7,9,209.99
-Rn,Radon,8,9,222
-Fr,Francium,1,10,223
-Ra,Radium,2,10,226
-Ac,Actinium,3,10,227
-Th,Thorium,1,12,232.04
-Pa,Protactinium,2,12,231.04
-U,Uranium,3,12,238.03
-Np,Neptunium,4,12,237
-Pu,Plutonium,5,12,244
-Am,Americium,6,12,243
-Cm,Curium,7,12,247
-Bk,Berkelium,8,12,247
-Cf,Californium,9,12,251
-Es,Einsteinium,10,12,252
-Fm,Fermium,11,12,257
-Md,Mendelevium,12,12,258
-No,Nobelium,13,12,259
-Lr,Lawrencium,14,12,262
-Rf,Rutherfordium,4,10,261
-Db,Dubnium,5,10,262
-Sg,Seaborgium,6,10,266
-Bh,Bohrium,7,10,264
-Hs,Hassium,8,10,277
-Mt,Meitnerium,9,10,268
-Ds,Darmstadtium,10,10,271
+import sys
+import csv
+from PyQt6.QtWidgets import QApplication, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QHeaderView, QMessageBox
+from PyQt6.QtCore import Qt
+
+class Mendeleev(QWidget):
+    def Element(self, ryad, colvo):
+        infa = self.tableWidget.item(ryad, colvo)
+        element = infa.data(Qt.ItemDataRole.ToolTipRole)
+        QMessageBox.information(self, "Информация об элементе", element)
+
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle('Нажмите на интересующий вас элемент периодической таблицы Д.И.Менделеева')
+        self.setGeometry(100, 100, 2000, 1500)
+
+        layout = QVBoxLayout()
+
+        self.tableWidget = QTableWidget()
+        self.tableWidget.setColumnCount(14)
+        self.tableWidget.setRowCount(12)
+
+        Rows =["1", "2", "3", "4", "5", "6", "7", "8"]
+        Groups = ["1", "2", "3", "4.1", "4.2", "5.1", "5.2","6.1","6.2" ,"7","Лантаноиды","Актиноиды"]
+
+        with open('Mendeleev.csv', newline='', encoding='utf-8') as cvsfile:
+            ExceLFile = csv.reader(cvsfile)
+            for ryad in ExceLFile:
+                if len(ryad) >= 5:
+                    ShortName = ryad[0]
+                    FullName = ryad[1]
+                    Group = ryad[2]
+                    Period = ryad[3]
+                    Mass = ryad[4]
+
+                    item = QTableWidgetItem(ShortName)
+                    item.setData(Qt.ItemDataRole.ToolTipRole, f"Полное название: {FullName}\nМасса: {Mass}")
+                    self.tableWidget.setItem(int(Period) - 1, int(Group) - 1, item)
+
+        self.tableWidget.setHorizontalHeaderLabels(Rows)
+        self.tableWidget.setVerticalHeaderLabels(Groups)
+
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+
+        layout.addWidget(self.tableWidget)
+        self.setLayout(layout)
+
+        self.tableWidget.cellClicked.connect(self.Element)
+
+app = QApplication(sys.argv)
+tablitsa = Mendeleev()
+tablitsa.show()
+sys.exit(app.exec())
